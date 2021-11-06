@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antidote.Co</title>
+    <link href='https://fonts.googleapis.com/css?family=Bevan' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Allison' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        body{
+            background: linear-gradient(45deg,rgb(22, 141, 238),rgb(61, 199, 61));
+            font-family:'Times New Roman', Times, serif;
+            font-size: 20px;
+        }
+        .hideit{
+            margin-left: 100px;
+            /* visibility: hidden; */
+        }
+        .submit{
+            background-color: white;
+        }
+        .submit:hover{
+            background-color: rgb(32, 32, 226);
+            opacity: 0.9;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        /* .rotation{
+            font-size: 60px;
+            top: 20px;
+            margin-left: 50px;
+            animation: spn 8s infinite;
+        }
+        @keyframes spn{
+            0%{transform: rotateX(0deg);}
+            100%{transform: rotateX(360deg);}
+        } */
+        .rotationY{
+            color: red;
+            position: absolute;
+            font-size: 60px;
+            top: 35px;
+            margin-left: 40px;
+            animation: spin 10s ;
+        }
+        @keyframes spin{
+            0%{transform: rotateX(0deg);
+                color: red;}
+            10%{color: blue;}
+            40%{color: rgb(255, 136, 0);}
+            70%{color: rgb(255, 251, 0);}
+            99%{-webkit-transform:rotate(3600deg);
+                color: green;}
+            100%{transform: rotateX(90deg);}
+        }
+        .boxit{
+            width: 456px;
+            height: 308px;
+            border: 2px solid black;
+            margin-left: 300px;
+            border-radius: 8px;
+        }
+        .main{
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <span><img src="./pngwing.com.png" width="100px" height="150px" style="position: absolute;left: 400px;" />
+    <h1 align="middle" style="font-family: Bevan;position: absolute;left: 500px;top: 50px;" >Antidote.Co💉</h1></span>
+    <br>
+    <!-- <div class="rotation">⬆</div> -->
+    <div class="rotationY">➡</div>
+    <div style="position: absolute;top: 200px;">
+       
+    <div style="margin-left: 250px;width: 800px;height: 123px;border: 2px solid black;padding: 12px;
+        font-size: 20px;">
+        The Pandemic Shattered lives of millions. In these tough times, Govt. of India came up with a unique
+        idea - " CoWIN " , to bring awareness in people and stand with them. By this Antidote website 
+        one can enter pincode of his area and find the vaccine availability in his locality, time slots, 
+        capacity of the center, vaccine availabe (i.e. COVISHIELD or COVAXIN) etc.. 
+        <p>&nbsp;&nbsp; Antidote.Co uses CoWIN API and make this process user friendly.</p> </div><br>
+        <div style="margin-left: 250px;font-size: 20px;">So what are you waiting for . . . .<br>
+        <p>
+            <div style="margin-bottom: 1px;margin-left: 130px;font-weight: 700;font-family:fantasy;"> Enter your pin</div>
+            <div style="margin-bottom: 1px;margin-left: 180px;font-size: 33px;">⬇</div>
+            <div style="margin-bottom: 1px;margin-left: 130px;font-weight: 700;font-family:fantasy;"> Know your Slot</div>
+            <div style="margin-bottom: 1px;margin-left: 180px;font-size: 33px;">⬇</div>
+            <div style="margin-bottom: 1px;margin-left: 130px;font-weight: 700;font-family:fantasy;
+            "> Get Vaccinated</div> 
+        </p>
+        </div>
+        <hr>
+       
+        <span><h3 align="middle">Enter Pincode : <input type="number" id="pin" style="height: 21px;" ></h3></span>
+        <span><h3 align="middle">Enter Date : <input type="text" id="date"  style="height: 21px;" 
+            placeholder="eg:15-08-2021" ></h3></span>
+        <button class="submit" onclick="getresult()" 
+        style="margin-left: 500px;width: 100px;height:30px;border: 2px solid black;
+        border-radius: 10px;" >SUBMIT</button><br><br>
+        <div class="hideit" >Center name  :<span id="centerName" ></span> </div>
+        <br>
+        <div class="hideit" >From :<span id="from" ></span> </div>
+        <br>
+        <div class="hideit" >To : <span id="to" ></span> </div>
+        <br>
+        <div class="hideit" >District : <span id="district" ></span> </div>
+        <br>
+        <div class="hideit" >State : <span id="state" ></span> </div>
+        <br>
+        <div class="hideit" >Available capacity(dose) : <span id="dose" style="margin-right: 150px;" ></span>
+             Dose_1 count : <span id="dose1" style="margin-right: 150px;"></span>
+             Dose_2 count : <span id="dose2" style="margin-right: 150px;"></span> 
+        </div>
+        <br>
+        <div class="hideit" >Vaccine : <span id="vaccine" ></span> </div>
+        <br>
+        <div class="hideit" >Slots : <div ><ul id="slotlist"></ul> </div> </div>
+        <hr>
+        <br>
+        <br>
+        <div class="main">
+            <div id="left" style="margin-left: 60px;width: 40px;margin-top: 40px;font-family: 'Anton';">
+                ***Warning!!
+                Get vaccinated at your nearest covid center***
+            </div>
+        <div class="boxit">
+            <img src="./wearmask(jpg).jpg" width="450px" height="300px" id="pic" style="margin-left: 0%;padding: 3px;" />
+        </div>
+        <div class="right" style="margin-left: 40px;"></div>
+        </div>
+        <br>
+        <marquee>Copyright &copy; 2020-21 &nbsp;&nbsp;&nbsp;*All rights reserved* &nbsp; 
+            <span style="font-family: 'Allison';font-weight: bold;"  >-bhanu</span> </marquee>
+        <!-- <img src="./facemask imp.jpg" -->
+    
+    </div>
+    <script type="text/javascript" >
+        $(document).ready(function(){
+            $('#left').css('color','rgb(226, 5, 5)');
+           });
+       
+            $(document).ready(function(){
+                    for(j=0;j<15;j++){
+                    $('#left').fadeToggle(2500);
+                    // console.log('faded');
+                    }
+                $('#left').fadeIn(2500);
+           });
+            
+       
+
+        function getresult(){
+            let apin = document.getElementById('pin').value;
+            // console.log(apin);
+            let adate = document.getElementById('date').value;
+            // console.log(adate);
+            let api = 'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=' + apin + '&date=' 
+                        + adate;
+        
+           
+        fetch(api)
+        .then(response=>{
+            return response.json();
+        })
+        .then((data)=>{
+            let acentName = data.sessions[0].name;
+            document.getElementById('centerName').innerText = ' ' + acentName;
+            let afrom = data.sessions[0].from;
+            document.getElementById('from').innerText = ' ' + afrom;
+            let ato = data.sessions[0].to;
+            document.getElementById('to').innerText = ' ' + ato;
+            let adistrict = data.sessions[0].district_name;
+            document.getElementById('district').innerText = ' ' + adistrict;
+            let astate = data.sessions[0].state_name;
+            document.getElementById('state').innerText = ' ' + astate;
+            let acapacity = data.sessions[0].available_capacity;
+            document.getElementById('dose').innerText = ' ' + acapacity;
+            let adose1 = data.sessions[0].available_capacity_dose1;
+            document.getElementById('dose1').innerText = ' ' + adose1;
+            let adose2 = data.sessions[0].available_capacity_dose2;
+            document.getElementById('dose2').innerText = ' ' + adose2;
+            let k = avaccine = data.sessions[0].vaccine;
+            document.getElementById('vaccine').innerText = ' ' + avaccine;
+            document.getElementById('vaccine').style.color ="blue";
+            let aslot= data.sessions[0].slots;
+            // console.log(aslot.length);
+            for(i=0;i<aslot.length;i++){
+                let x = document.createElement("li");
+                let t = document.createTextNode(aslot[i]);
+                x.appendChild(t);
+                document.getElementById('slotlist').appendChild(x);
+            }
+            $(document).ready(function(){
+            $('#vaccine').css('font-weight','bold');
+            
+            });
+            
+        })
+        .catch();
+
+        }
+        images = ['./wearmask(jpg).jpg','./no hand shakes.jpg','./social dist.jpg','./facemask imp.jpg']
+        let a = document.getElementById('pic');
+        let i=1;
+        console.log(images.length);
+        // console.log(images[1]);
+        function showpic(){
+            if(i>=images.length){
+                setTimeout(()=>{
+                    a.src = images[0];
+                    i=0;
+                showpic();
+                },2000);
+                
+            }
+            else{
+                // console.log(images[i]);
+                setTimeout(() => {  
+                a.src = images[i];
+                i++;
+                showpic();
+                
+                }, 2500);
+            }
+            
+        }
+        showpic();
+        
+    </script>
+    
+</body>
+</html>
